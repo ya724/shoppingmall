@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mapper.ProductCategoryMapper">
+
+    <select id="GetAllCount" resultType="int">
+      select count(product_category_id) from product_category where del=0 and parent_id=#{parent_id}
+    </select>
+    <select id="GetPageProductCategorys" resultType="com.it.bean.ProductCategory">
+        select *from product_category where del=0 and parent_id=#{parent_id}
+        <if test="product_category_name!=null and product_category_name!=''">
+            and product_category_name like '%${product_category_name}%'
+        </if>
+        order by product_category_id limit #{pageStart},#{pageSize}
+    </select>
+
+    <select id="findById" resultType="com.it.bean.ProductCategory">
+        select * from product_category where product_category_id=#{product_category_id};
+    </select>
+
+    <insert id="ProductCategoryAdd" useGeneratedKeys="true" keyProperty="product_category_id">
+        insert product_category values(null,#{iocn},#{parent_id},#{product_category_name},0);
+    </insert>
+
+    <select id="GetAllCategorys" resultType="com.it.bean.ProductCategory">
+        select *from product_category where del=0 and parent_id=#{parent_id}
+
+    </select>
+</mapper>

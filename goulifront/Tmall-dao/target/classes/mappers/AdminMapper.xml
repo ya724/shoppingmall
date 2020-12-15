@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mapper.AdminMapper">
+    <select id="AdminLogin" resultType="com.it.bean.Admin">
+        select *from admin where admin_name=#{admin_name} and admin_password=#{admin_password}
+    </select>
+
+    <update id="UpdateAdmin">
+        update admin
+        <set >
+            <if test="admin_nickname!='' and admin_nickname!=null">
+                admin_nickname=#{admin_nickname},
+            </if>
+
+            <if test="admin_profile_picture_src!='' and admin_profile_picture_src!=null">
+                admin_profile_picture_src=#{admin_profile_picture_src},
+            </if>
+
+            <if test="admin_password!='' and admin_password!=null">
+                admin_password=#{admin_password}
+            </if>
+        </set>
+        where admin_id=#{admin_id}
+    </update>
+
+    <select id="GetAdminsPage" resultType="com.it.bean.Admin">
+        select *from  admin order by admin_id asc limit #{startPage},#{pageSize}
+    </select>
+
+    <select id="GetAllCount" resultType="integer">
+        select count(admin_id) from admin where admin_del=0
+    </select>
+
+    <select id="GetAdminByAdminName" resultType="com.it.bean.Admin">
+        select *from admin where admin_del=0 and admin_name=#{admin_name}
+    </select>
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mapper.ProductMapper">
+    <select id="GetAllCount" resultType="int">
+        select count(product_id) from product where product_del=0
+        <if test="product_name!=null and product_name!=''">
+            and product_name like '%${product_name}%'
+        </if>
+        <if test="product_isEnabled!='-1'">
+            and product_isEnabled=#{product_isEnabled}
+        </if>
+        <if test="startPrice!=null">
+            and product_sale_price>=#{startPrice}
+        </if>
+        <if test="endPrice!=null">
+            and product_sale_price&lt;=#{endPrice}
+        </if>
+    </select>
+
+    <select id="GetPageProducts" resultType="Product">
+        select * from product where product_del=0
+        <if test="product_name!=null and product_name!=''">
+            and product_name like '%${product_name}%'
+        </if>
+        <if test="product_isEnabled!='-1'">
+            and product_isEnabled=#{product_isEnabled}
+        </if>
+        <if test="startPrice!=null">
+            and product_sale_price>=#{startPrice}
+        </if>
+        <if test="endPrice!=null">
+            and product_sale_price&lt;=#{endPrice}
+        </if>
+        order by product_id desc limit #{startPage},#{pageSize}
+    </select>
+
+    <insert id="ProductAdd" keyProperty="product_id" useGeneratedKeys="true">
+        insert product values (null,#{product_name},#{product_title},#{product_price},#{product_sale_price},
+        now(),#{product_category_id},#{product_isEnabled},0)
+    </insert>
+
+    <select id="GetOnlineProducts" resultType="int">
+        select count(product_id) from product where product_isEnabled in (0,2) and product_del=0
+    </select>
+
+</mapper>

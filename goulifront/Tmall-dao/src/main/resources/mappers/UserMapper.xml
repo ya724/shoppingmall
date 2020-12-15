@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mapper.UserMapper">
+    <select id="UserLogin" resultType="com.it.bean.User">
+        select *from user where user_name=#{user_name} and user_password=#{user_password}
+    </select>
+
+    <select id="GetAllCount" resultType="int">
+        select count(user_id) from user where 1=1
+        <if test="user_nickname!=null and user_nickname!=''">
+         and user_nickname like '%${user_nickname}%'
+        </if>
+        <if test="user_gender!=null and user_gender!='' and user_gender!='-1'">
+           and user_gender=#{user_gender}
+        </if>
+    </select>
+
+    <select id="GetPageUsers" resultType="com.it.bean.User">
+        select *from user where 1=1
+        <if test="user_nickname!=null and user_nickname!=''">
+          and user_nickname like '%${user_nickname}%'
+        </if>
+        <if test="user_gender!=null and user_gender!='' and user_gender!='-1'">
+          and user_gender=#{user_gender}
+        </if>
+        order by user_id desc limit #{pageStart},#{pageSize}
+    </select>
+    <select id="GetUserById" resultType="com.it.bean.User">
+        select *from user where user_id=#{user_id}
+    </select>
+    <select id="GetUserAddress" resultType="String">
+           select address_name from address where address_areaId=#{address_areaId}
+        UNION all
+        select address_name from address where address_areaId=
+        (select address_regionId from address where address_areaId=#{address_areaId})
+        UNION ALL
+        select address_name from address where address_areaId=
+        (select address_regionId from address where address_areaId=
+          (select address_regionId from address where address_areaId=#{address_areaId})
+        )
+    </select>
+
+
+    <select id="GetUserHomeplace" resultType="String">
+        select address_name from address where address_areaId=#{user_homeplace}
+    </select>
+
+    <select id="GetRegisterUsers" resultType="integer">
+        select count(user_id) from user where user_status=1
+    </select>
+
+
+
+
+</mapper>

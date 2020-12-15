@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mapper.AdvertisementCategoryMapper">
+
+    <select id="GetAllCount" resultType="int">
+        select count(id) from advertisement_category
+    </select>
+
+    <select id="GetPageAdvertisementCategorys" resultType="com.it.bean.AdvertisementCategory">
+        select *from advertisement_category order by id desc limit #{pageStart},#{pageSize}
+    </select>
+  <insert id="AddAdvertisementCategory" >
+      insert advertisement_category values (null,#{name},0)
+  </insert>
+
+    <delete id="DeleteAdvertisementCategory" >
+        delete from advertisement_category where id=#{id}
+    </delete>
+
+    <update id="UpdateAdvertisementCategory">
+        update advertisement_category set name=#{name} where id=#{id}
+    </update>
+
+    <select id="GetAdvertisementCategoryById" resultType="com.it.bean.AdvertisementCategory">
+        select * from advertisement_category where id=#{id};
+    </select>
+
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mapper.AdvertisementMapper">
+
+    <select id="GetAdvertisementsById" resultType="com.it.bean.Advertisement">
+        select *from advertisement where del=0 and advertisement_category_id=#{advertisement_category_id}
+        <if test="advertisement_category_id!=null and advertisement_category_id!=''">
+            and status=#{status}
+        </if>
+    </select>
+
+    <insert id="AdvertisementAdd">
+        insert advertisement values (null,#{advertisement_category_id},#{title},#{url},#{pic},#{status},#{sort_order},0)
+    </insert>
+</mapper>

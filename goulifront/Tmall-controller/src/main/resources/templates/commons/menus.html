@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>公共菜单</title>
+</head>
+<body>
+<ul id="ul_home_menu" class="text_info" th:fragment="menus">
+    <li class="menu_li" data-toggle="home"  th:each="amenus:${session.menus}" >
+       [(${amenus.icon})]
+        <a th:href="${amenus.link}">
+        <span th:text="${amenus.title}"></span>
+        </a>
+    </li>
+
+</ul>
+</body>
+
+</html>

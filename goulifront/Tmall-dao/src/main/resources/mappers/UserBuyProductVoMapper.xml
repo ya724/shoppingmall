@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mapper.UserBuyProductVoMapper">
+    <select id="GetUserBuyProductVoById" resultType="com.it.vo.UserBuyProductVo">
+        SELECT product.product_id,product.product_name,product.product_price,product.product_sale_price,
+productimage.productimage_src,productorderitem.productorderitem_price,
+productorderitem.productorderitem_number,productorderitem.productorderitem_userMessage
+FROM product INNER JOIN productimage on product.product_id=productimage.productimage_product_id
+INNER JOIN productorderitem on product.product_id=productorderitem.productorderitem_product_id
+WHERE productorderitem.productorderitem_user_id=#{user_id}
+    </select>
+
+    <select id="GetProductImage" resultType="String">
+        select productimage.productimage_src from productimage where productimage.productimage_product_id=#{product_id} and productimage.productimage_type=0
+        LIMIT 0,1
+    </select>
+
+    <select id="GetAUserBuyProductVo" resultType="com.it.vo.UserBuyProductVo">
+       SELECT product.product_id,product.product_name,product.product_price,product.product_sale_price,
+productorderitem.productorderitem_price,
+productorderitem.productorderitem_number,productorderitem.productorderitem_userMessage
+FROM product INNER JOIN productorderitem on product.product_id=productorderitem.productorderitem_product_id
+WHERE productorderitem.productorderitem_order_id=#{productorder_id}
+    </select>
+</mapper>

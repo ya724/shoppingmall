@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mapper.PermissonMapper">
+
+    <select id="GetPermissonsByAdminId" resultType="com.it.bean.Permisson">
+      SELECT DISTINCT permisson.* from permisson INNER JOIN role_permisson ON permisson.id=role_permisson.permisson_id
+INNER JOIN role on role_permisson.role_id=role.r_id
+INNER JOIN admin_role on admin_role.role_id=role.r_id WHERE admin_role.admin_id=#{admin_id} and permisson.type=#{type}
+    </select>
+</mapper>

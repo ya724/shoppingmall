@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap-select.min.js"></script>
+    <script src="/js/defaults-zh_CN.min.js"></script>
+    <script src="/js/echarts.js"></script>
+    <script src="/js/base.js"></script>
+<script src="/js/admin/admin_home.js"></script><link rel="stylesheet" href="/css/admin/admin_home.css"><link rel="stylesheet" href="/css/admin/admin_main.css"><title>Tmall管理后台 - 订单详情</title><style id="tsbrowser_video_independent_player_style" type="text/css">
+      [tsbrowser_force_max_size] {
+        width: 100% !important;
+        height: 100% !important;
+        left: 0px !important;
+        top: 0px !important;
+        margin: 0px !important;
+        padding: 0px !important;
+        transform: none !important;
+      }
+      [tsbrowser_force_fixed] {
+        position: fixed !important;
+        z-index: 9999 !important;
+        background: black !important;
+      }
+      [tsbrowser_force_hidden] {
+        opacity: 0 !important;
+        z-index: 0 !important;
+      }
+      [tsbrowser_hide_scrollbar] {
+        overflow: hidden !important;
+      }
+      [tsbrowser_display_none] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+      }
+      [tsbrowser_force_show] {
+        display: black !important;
+        visibility: visible !important;
+        opacity: 0;
+      }</style></head>
+	<body style="">
+<div id="div_home_main">
+
+    <!--引入公共head-->
+    <div th:replace="@{commons/head}::head"></div>
+    <!--引入公共head-->
+
+    <!--引入公共菜单-->
+    <div th:replace="@{commons/menus}::menus"></div>
+    <!--引入公共菜单-->
+
+    <div id="div_home_title" class="text_info">
+        <span>订单详情</span>
+    </div>
+    <div id="div_home_context">
+        <div id="div_home_context_main">
+
+
+
+
+    <script>
+        $(function () {
+
+
+            //设置订单状态
+            var status_index = '[[${productOrder.productorder_status}]]';
+            switch (status_index) {
+                case '0':
+                    $("#wait_point_1").addClass("wait_point_select").children(".wait_point_text").addClass('td_special');
+                    break;
+                case '1':
+                    $("#wait_point_2").addClass("wait_point_select").children(".wait_point_text").addClass('td_special');
+                    break;
+                case '2':
+                    $("#wait_point_3").addClass("wait_point_select").children(".wait_point_text").addClass('td_special');
+                    break;
+                case '3':
+                    $("#wait_point_4").addClass("wait_point_select").children(".wait_point_text").addClass('td_special');
+                    break;
+                default:
+                    $("#wait_point_1").children(".wait_point_text").addClass('td_special').text("交易关闭").prev("span").text('×');
+                    $("#wait_point_1").addClass("wait_point_select");
+            }
+
+            /******
+             * event
+             ******/
+            //单击取消按钮时
+            $("#btn_order_cancel").click(function () {
+                $(".menu_li[data-toggle=order]").click();
+            });
+            //单击发货按钮时
+            $("#btn_order_save").click(function () {
+                var order_id = '229';
+                $.ajax({
+                    url: "admin/order/" + order_id,
+                    type: "PUT",
+                    data: null,
+                    success: function (data) {
+                        $("#btn_order_save").remove();
+                        if (data.success) {
+                            $("#btn-ok,#btn-close").unbind("click").click(function () {
+                                $('#modalDiv').modal("hide");
+                                setTimeout(function () {
+                                    //ajax请求页面
+                                    ajaxUtil.getPage("order/" + data.order_id, null, true);
+                                }, 170);
+                            });
+                            $(".modal-body").text("发货成功！");
+                            $('#modalDiv').modal();
+                        }
+                    },
+                    beforeSend: function () {
+                        $("#btn_order_save").attr("disabled", true).val("发货中...");
+                    },
+                    error: function () {
+
+                    }
+                });
+            });
+        });
+
+        //获取产品子界面
+        function getChildPage(obj) {
+            //设置样式
+            $("#div_home_title").children("span").text("产品详情");
+            document.title = "Tmall管理后台 - 产品详情";
+            //ajax请求页面
+            ajaxUtil.getPage("product/" + $(obj).parents("tr").find(".product_id").text(), null, true);
+        }
+
+        //获取用户子界面
+        function getUserPage(id) {
+            //设置样式
+            $("#div_home_title").children("span").text("用户详情");
+            document.title = "Tmall管理后台 - 用户详情";
+            //ajax请求页面
+            ajaxUtil.getPage("user/" + id, null, true);
+        }
+    </script>
+    <style rel="stylesheet">
+        #wait {
+            width: 600px;
+            height: 2px;
+            background-color: #ccc;
+            border-radius: 5px;
+            position: relative;
+            margin: 30px 0 0 50px;
+        }
+
+        .wait_point {
+            position: absolute;
+            width: 1.4em;
+            height: 1.4em;
+            line-height: 1.4em;
+            text-align: center;
+            border-radius: 50%;
+            background: #ccc;
+        }
+
+        .wait_point_select {
+            background: #FF7874;
+        }
+
+        .wait_point > span {
+            position: relative;
+            top: 1px;
+            color: white;
+        }
+
+        .wait_point > .wait_point_text {
+            font-size: 12px;
+            width: 6em;
+            margin-left: -25px;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .details_status_spacial {
+            height: 110px;
+        }
+
+        #table_orderItem_list th:first-child {
+            width: auto;
+        }
+    </style>
+
+
+<div class="details_div_first">
+    <input type="hidden" value="229" id="details_order_id">
+    <div class="frm_div">
+        <label class="frm_label text_info" id="lbl_order_id">订单号</label>
+        <span class="details_value" th:text="${productOrder.productorder_code}">XXXX</span>
+    </div>
+    <div class="frm_div">
+        <label class="frm_label text_info" id="lbl_order_user">所属用户</label>
+        <span class="details_value td_wait"><a  href="javascript:void(0)" onclick="getUserPage(22)" th:text="${user.user_name}">XXXX</a></span>
+    </div>
+</div>
+<div class="details_div">
+    <span class="details_title text_info">基本信息</span>
+    <div class="frm_div">
+        <label class="frm_label text_info" id="lbl_order_receiver">收货人姓名</label>
+        <span class="details_value" th:text="${productOrder.productorder_receiver}">XXXX</span>
+    </div>
+    <div class="frm_div">
+        <label class="frm_label text_info" id="lbl_order_address">收货地址</label>
+        <span class="details_value details_value_noRows" th:text="${receiveAddress}">XXXX</span>
+    </div>
+    <div class="frm_div">
+        <label class="frm_label text_info" id="lbl_product_title">邮政编码</label>
+        <span class="details_value"  th:text="${productOrder.productorder_post}">XXX</span>
+        <label class="frm_label text_info" id="lbl_order_mobile">联系电话</label>
+        <span class="details_value"   th:text="${productOrder.productorder_mobile}">CXXXXX</span>
+    </div>
+</div>
+<div class="details_div details_status_spacial">
+    <span class="details_title text_info">订单状态</span>
+    <div id="wait">
+        <div class="wait_point" id="wait_point_1" style="top:-0.7em;left: 0;">
+            <span>1</span>
+            <div class="wait_point_text">等待买家付款</div>
+        </div>
+        <div class="wait_point" id="wait_point_2" style="top:-0.7em;left: 33%;">
+            <span>2</span>
+            <div class="wait_point_text">等待卖家发货</div>
+        </div>
+        <div class="wait_point" id="wait_point_3" style="top:-0.7em;left: 66%;">
+            <span>3</span>
+            <div class="wait_point_text">等待买家确认</div>
+        </div>
+        <div class="wait_point" id="wait_point_4" style="top:-0.7em;left: 100%;">
+            <span>4</span>
+            <div class="wait_point_text">订单交易完成</div>
+        </div>
+    </div>
+</div>
+<div class="details_div">
+    <span class="details_title text_info">订单项信息</span>
+    <table class="table_normal" id="table_orderItem_list">
+        <thead class="text_info">
+        <tr>
+            <th>产品图片</th>
+            <th>产品名称</th>
+            <th>原价</th>
+            <th>售价</th>
+            <th>数量</th>
+            <th>总价</th>
+            <th>备注</th>
+            <th>操作</th>
+            <th hidden="" class="product_id">产品ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="car:${userBuyProductVo}">
+            <td><img th:src="|/images/item/productSinglePicture/${productImage}|" width="50%"></td>
+            <td th:text="${car.product_name}">产品名称</td>
+            <td th:text="${car.product_price}">单价</td>
+            <td th:text="${car.product_sale_price}">单价</td>
+            <td th:text="${car.productorderitem_number}">数量</td>
+            <td th:text="${car.productorderitem_price}">价格</td>
+            <td th:text="${car.productorderitem_userMessage}">备注</td>
+            <td>操作</td>
+            <th hidden="" class="product_id"  >产品ID</th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+    <div class="details_div details_div_last">
+        <span class="details_title text_info">流程时间</span>
+        <div class="frm_div">
+            <label class="frm_label text_info" id="lbl_order_pay_date">下单时间</label>
+            <span class="details_value details_value_noRows" th:text="${productOrder.productorder_create_date}">XXXXX</span>
+        </div>
+
+        <div class="frm_div">
+            <label class="frm_label text_info" >支付时间</label>
+            <span class="details_value details_value_noRows" th:text="${productOrder.productorder_pay_date}">XXXXX</span>
+        </div>
+        
+            <div class="frm_div">
+                <label class="frm_label text_info" id="lbl_order_delivery_date">发货日期</label>
+                <span class="details_value details_value_noRows" th:text="${productOrder.productorder_delivery_date}">XXXX</span>
+            </div>
+            
+                <div class="frm_div">
+                    <label class="frm_label text_info" id="lbl_order_confirm_date">确认日期</label>
+                    <span class="details_value details_value_noRows" th:text="${productOrder.productorder_confirm_date}">XXXX</span>
+                </div>
+            
+        
+    </div>
+
+<div class="details_tools_div">
+    
+    <input class="frm_btn frm_clear" id="btn_order_cancel" type="button" value="取消">
+</div>
+
+
+<div class="modal fade" id="modalDiv" tabindex="-1" role="dialog" aria-labelledby="modalDiv" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">提示</h4>
+            </div>
+            <div class="modal-body">您确定要删除该订单吗？</div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="btn-ok">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-close">关闭</button>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+<div class="loader"></div>
+
+
+</div>
+    </div>
+</div>
+</body>
+</html>

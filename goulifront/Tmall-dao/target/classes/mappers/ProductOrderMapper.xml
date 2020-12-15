@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mapper.ProductOrderMapper">
+
+    <select id="GetAllCount" resultType="integer">
+        select count(productorder_id) from productorder where 1=1
+        <if test="productorder_code!=null and productorder_code!=''">
+            and productorder_code like '%${productorder_code}%'
+        </if>
+        <if test="productorder_status!='-1'">
+            and productorder_status=#{productorder_status}
+        </if>
+    </select>
+    
+    <select id="GetPageProductOrders" resultType="com.it.bean.ProductOrder">
+        select * from productorder where 1=1
+        <if test="productorder_code!=null and productorder_code!=''">
+            and productorder_code like '%${productorder_code}%'
+        </if>
+        <if test="productorder_status!='-1'">
+            and productorder_status=#{productorder_status}
+        </if>
+        order by productorder_id asc limit #{startPage},#{pageSize}
+    </select>
+
+    <select id="GetAProductOrder" resultType="com.it.bean.ProductOrder">
+        select  *from productorder where productorder_id=#{productorder_id}
+    </select>
+
+    <select id="GetDealProductOrders" resultType="integer">
+        select count(productorder_id) from productorder where productorder_status=3
+    </select>
+
+    <select id="findOrderGroups" resultType="com.it.bean.OrderGroup">
+         SELECT productorder_create_date,count(productorder_id) as productOrder_count ,
+            productorder_status from productorder WHERE productorder_create_date BETWEEN #{beginDate} AND #{endDate}
+            GROUP BY DATE_FORMAT(productorder_create_date,'%Y-%m-%d'),productorder_status
+    </select>
+</mapper>
