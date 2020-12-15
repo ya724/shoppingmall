@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/fore/fore_main.css">
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap-select.min.js"></script>
+    <script src="/js/defaults-zh_CN.min.js"></script>
+    <script src="/js/base.js"></script>
+    <script src="/js/fore/fore_register.js"></script>
+    <link href="/css/fore/fore_register.css" rel="stylesheet">
+    <title>天猫tmall.com - 网上注册</title>
+    <script>
+        $(function () {
+            $("span.address_province").text($("#select_order_address_province").find("option:selected").text());
+            $("span.address_city").text($("#select_order_address_city").find("option:selected").text());
+            $("span.address_district").text($("#select_order_address_district").find("option:selected").text());
+        })
+    </script>
+    <style rel="stylesheet">
+        #nav {
+            width: auto;
+            height: 32px;
+            font-family: "Microsoft YaHei UI", Tahoma, serif;
+            font-size: 12px;
+            position: relative !important;
+            background: #f2f2f2;
+            z-index: 999;
+            border-bottom: 1px solid #e5e5e5;
+        }
+    </style>
+    <style id="tsbrowser_video_independent_player_style" type="text/css">
+        [tsbrowser_force_max_size] {
+            width: 100% !important;
+            height: 100% !important;
+            left: 0px !important;
+            top: 0px !important;
+            margin: 0px !important;
+            padding: 0px !important;
+            transform: none !important;
+        }
+
+        [tsbrowser_force_fixed] {
+            position: fixed !important;
+            z-index: 9999 !important;
+            background: black !important;
+        }
+
+        [tsbrowser_force_hidden] {
+            opacity: 0 !important;
+            z-index: 0 !important;
+        }
+
+        [tsbrowser_hide_scrollbar] {
+            overflow: hidden !important;
+        }
+
+        [tsbrowser_display_none] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+
+        [tsbrowser_force_show] {
+            display: black !important;
+            visibility: visible !important;
+            opacity: 0;
+        }</style>
+</head>
+<body style="">
+<nav>
+    <div class="header">
+        <div id="mallLogo">
+            <a href="/tmall"><img src="/images/fore/WebsiteImage/tmallLogoA.png"><span
+                    class="span_tmallRegister">用户注册</span></a>
+        </div>
+    </div>
+</nav>
+
+<form id="addForm">
+    <div class="content">
+        <div class="steps">
+            <div class="steps_main">
+                <span class="steps_tsl">填写账号信息</span>
+            </div>
+        </div>
+        <div class="form-list">
+            <div class="form-item">
+                <label class="form-label form-label-b tsls">设置会员名</label>
+            </div>
+            <div class="form-item">
+                <label class="form-label tsl">用户名：</label>
+                <input name="user_name" id="user_name" class="form-text err-input" placeholder="请输入用户名" maxlength="20"
+                       style="border: 1px solid rgb(204, 204, 204);">
+                <span class="form_span" style="display: none; color: rgb(0, 160, 233);">请输入用户名</span>
+            </div>
+            <div class="form-item">
+                <label class="form-label form-label-b tsls">设置登录密码</label>
+                <label class="form-label tsl">登录时验证，保护账号信息</label>
+            </div>
+            <div class="form-item">
+                <label class="form-label tsl">登录密码：</label>
+                <input name="user_password" type="password" id="user_password" class="form-text err-input"
+                       placeholder="请设置登录密码" maxlength="20" style="border: 1px solid rgb(204, 204, 204);">
+                <span class="form_span" style="display: none; color: rgb(0, 160, 233);">请输入密码</span>
+            </div>
+            <div class="form-item">
+                <label class="form-label tsl">确认密码：</label>
+                <input name="user_password_one" type="password" id="user_password_one" class="form-text err-input"
+                       placeholder="请再次输入你的密码" maxlength="20" style="border: 1px solid rgb(204, 204, 204);">
+                <span class="form_span" style="display: none; color: rgb(0, 160, 233);">请再次输入密码</span>
+            </div>
+            <div class="form-item">
+                <label class="form-label form-label-b tsls">填写基本信息</label>
+            </div>
+            <div class="form-item">
+                <label class="form-label tsl">昵称：</label>
+                <input name="user_nickname" id="user_nickname" class="form-text err-input" placeholder="请输入昵称"
+                       maxlength="20" style="border: 1px solid rgb(204, 204, 204);">
+                <span class="form_span" style="display: none; color: rgb(0, 160, 233);">请输入昵称</span>
+            </div>
+            <div class="form-item">
+                <label class="form-label tsl">性别：</label>
+                <input name="user_gender" type="radio" id="form_radion" value="0" checked="checked">男
+                <input name="user_gender" type="radio" id="form_radions" value="1">女
+            </div>
+            <div class="form-item">
+                <label class="form-label tsl">出生日期：</label>
+                <input type="date" name="user_birthday" id="user_birthday" class="form-text err-input"
+                       style="border: 1px solid rgb(204, 204, 204);">
+                <span class="form_span" style="display: none; color: rgb(0, 160, 233);">请输入出生日期</span>
+            </div>
+            <div class="form-item">
+                <label class="form-label tsl">手机号：</label>
+                <input name="user_phone" id="user_phone" class="form-text err-input" placeholder="请输入手机号"
+                       maxlength="20" style="border: 1px solid rgb(204, 204, 204);">
+                <span class="form_span" style="display: none; color: rgb(0, 160, 233);">请输入手机号</span>
+            </div>
+            <div class="form-item">
+                <label class="form-label tsl">验证码：</label>
+                <input name="user_message" id="user_message" class="form-text err-input" placeholder="请输入验证码"
+                       maxlength="20" style="border: 1px solid rgb(204, 204, 204);width:180px;">
+
+
+                <a id="messageBtn" style="height:30px;width: 80px;">
+                    <span onclick="sendMessage();" style="cursor: pointer;">获取验证码</span>
+                </a>
+
+            </div>
+            <div class="form-item">
+                <label class="form-label tsl">居住地址：</label>
+                <select name="user_homeplace" id="select_province" style="height: 40px" onchange="getCitys();">
+
+                </select>
+                <select id="select_city" style="height: 40px" onchange="getDistricts();">
+                    <!-- <option value="210100">沈阳市</option>-->
+                </select>
+                <select name="user_address" style="height: 40px" id="select_district">
+                    <!-- <option value="210502">平山区</option>-->
+                </select>
+            </div>
+        </div>
+        <div class="form-item" style="text-align: center">
+            <input type="button" onclick="registerUser();" class="btns btn-large tsl" value="注 册">
+
+            <input type="button" id="register_sub111" style="visibility: hidden" class="btns btn-large tsl" value="重 置">
+        </div>
+    </div>
+    </div>
+</form>
+
+<link rel="stylesheet" href="/css/fore/fore_foot.css">
+<div class="footer-copyright">
+    <div class="footer">
+        <p>
+            <a href="http://pages.tmall.com/wow/seller/act/zhaoshangproduce" target="_blank">关于天猫</a>
+            <a href="http://service.tmall.com/support/tmall/tmallHelp.htm" target="_blank">帮助中心</a>
+            <a href="http://open.taobao.com" target="_blank">开放平台</a>
+            <a href="http://job.alibaba.com/zhaopin/index.htm" target="_blank">诚聘英才</a>
+            <a href="http://consumerservice.taobao.com/contact-us" target="_blank">联系我们</a>
+            <a href="http://xtao.tmall.com?tracelog=tmallfoot" target="_blank">网站合作</a>
+            <a href="http://terms.alicdn.com/legal-agreement/terms/suit_bu1_taobao/suit_bu1_taobao201703241622_61002.html"
+               target="_blank">法律声明及隐私权政策</a>
+            <a href="http://ipp.alibabagroup.com/" target="_blank">知识产权</a>
+            <a href="http://jubao.alibaba.com/index.html?site=TMALL" target="_blank">廉正举报</a>
+            <a href="http://rule.tmall.com/trulecycle.htm" target="_blank" class="noneStyle">规则意见征集</a>
+        </p>
+        <p class="footertwo">
+            <a href="http://www.alibabagroup.com/cn/global/home" target="_blank">阿里巴巴集团</a>
+            <a href="http://www.taobao.com" target="_blank">淘宝网</a>
+            <a href="http://www.tmall.com/" target="_blank">天猫</a>
+            <a href="http://ju.taobao.com/" target="_blank">聚划算</a>
+            <a href="http://www.aliexpress.com/" target="_blank">全球速卖通</a>
+            <a href="http://www.alibaba.com/" target="_blank">阿里巴巴国际交易市场</a>
+            <a href="http://www.1688.com/" target="_blank">1688</a>
+            <a href="http://www.alimama.com/" target="_blank">阿里妈妈</a>
+            <a href="http://www.fliggy.com/" target="_blank">飞猪</a>
+            <a href="http://www.aliyun.com/" target="_blank">阿里云计算</a>
+            <a href="http://www.yunos.com/" target="_blank">YunOS</a>
+            <a href="http://aliqin.cn/" target="_blank">阿里通信</a>
+            <a href="http://www.net.cn/" target="_blank">万网</a>
+            <a href="http://www.autonavi.com/" target="_blank">高德</a>
+            <a href="http://www.uc.cn/" target="_blank">UC</a>
+            <a href="http://www.umeng.com/" target="_blank">友盟</a>
+            <a href="http://www.xiami.com/" target="_blank">虾米</a>
+            <a href="http://www.alibabaplanet.com" target="_blank">阿里星球</a>
+            <a href="http://www.laiwang.com/" target="_blank">来往</a>
+            <a href="http://www.dingtalk.com/?lwfrom=20150205115110773" target="_blank">钉钉</a>
+            <a href="https://www.alipay.com" target="_blank">支付宝</a>
+        </p>
+        <div class="copyright">
+            增值电信业务经营许可证：
+            <a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action" target="_blank">浙B2-20110446</a>
+            网络文化经营许可证：
+            <a href="http://sq.ccm.gov.cn/ccnt/sczr/service/business/emark/toDetail/CB964ABC7B904B7BA3472DDF700A2D6D"
+               target="_blank">浙网文[2015]0295-065号</a>
+            <a href="http://jb.ccm.gov.cn/" target="_blank">12318举报</a>
+            <br>
+            互联网药品信息服务资质证书编号：
+            <a href="http://img.alicdn.com/tps/TB1vi6vPVXXXXbVXVXXXXXXXXXX-927-653.png" target="_blank">浙-（经营性）-2017-0005</a>
+            <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010002000120" target="_blank">
+                <img src="/images/fore/WebsiteImage/TB1yEqRPXXXXXXPXpXXXXXXXXXX-20-20.png">
+                浙公网安备 33010002000120号
+            </a>
+            <br>
+            <span style="font-weight: bold;">© 2018 贤趣开发小组 版权所有</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;你知道什么是996.ICU吗？</span>
+            <a href="https://996.icu"><img src="https://img.shields.io/badge/link-996.icu-red.svg" alt="996.icu"></a>
+        </div>
+    </div>
+</div>
+<link href="/css/fore/fore_foot_special.css" rel="stylesheet">
+<div class="msg">
+    <span>注册成功，跳转到登陆页面</span>
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+
+    $(function () {
+        $.getJSON("/address_findProvinces", function (result) {
+            //alert(JSON.stringify(result));
+            for (var i = 0; i < result.length; i++) {
+                //alert(result[i].address_areaId);
+                $("#select_province").append("<option value='" + result[i].address_areaId + "'>" + result[i].address_name + "</option>")
+            }
+            //绑定二级下拉框
+            getCitys();
+        });
+    });
+
+    function getCitys() {
+        $("#select_city").html("");
+        $.getJSON("/address_findCitysOrTown", {"address_regionId": $("#select_province").val()}, function (result) {
+            for (var i = 0; i < result.length; i++) {
+                $("#select_city").append("<option value='" + result[i].address_areaId + "'>" + result[i].address_name + "</option>")
+            }
+
+            getDistricts();
+        });
+    }
+
+    function getDistricts() {
+        $("#select_district").html("");
+        $.getJSON("/address_findCitysOrTown", {"address_regionId": $("#select_city").val()}, function (result) {
+            for (var i = 0; i < result.length; i++) {
+                $("#select_district").append("<option value='" + result[i].address_areaId + "'>" + result[i].address_name + "</option>")
+            }
+        });
+    }
+
+    function registerUser() {
+        $.post("/user_add", $("#addForm").serialize(), function (result) {
+            if (result.code == 200) {
+                alert("注册成功");
+                location.href = "/page/login";
+            } else if(result.code == 9001){
+                alert("验证码错误！");
+            }else {
+                alert("注册失败，稍后再试~");
+            }
+        });
+    }
+
+
+    var count=10;
+    var timer_id;
+
+    function messageTip() {
+        //倒计时
+        $("#messageBtn").html("<span style=\"color: grey;\">"+count+"S后重新发送</span>");
+        count--;
+        if(count==0){
+            //结束定时器
+            window.clearInterval(timer_id);
+            $("#messageBtn").html("<span onclick=\"sendMessage();\" style=\"cursor: pointer;\">获取验证码</span>");
+            count=10;
+        }
+    }
+
+    function startJishi(){
+        timer_id=window.setInterval("messageTip()",1000);
+    }
+
+    /**
+     * 获取短信验证码
+     */
+    function sendMessage() {
+        //合法的手机号
+        var phonenumber = $("#user_phone").val();
+        //开始计时
+        startJishi();
+        $.post("/user_sendmessage", {"phonenumber": phonenumber}, function (result) {
+            if (result.code == 200) {
+                alert("短信发送成功");
+            } else {
+                alert("短信发送失败");
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,82 @@
+server:
+  port: 80
+
+# thymeleaf config
+spring:
+  # Redis 配置信息
+  redis:
+    hostName: 127.0.0.1  # IP
+    jedis:
+      pool:
+        max-idle: 10  # 设置最大空闲连接数，默认为8
+        min-idle: 5   # 设置无连接时池中最小的连接个数,默认连接0
+        max-total: 20   # 设置最大连接数 默认是8
+    port: 6379        # 端口
+  # ES的配置
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 127.0.0.1:9300
+      properties:
+        transport:
+          tcp:
+            connect_timeout: 120s
+
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true # 开启Spring Cloud的重试功能
+  application:
+    name: springcloud-protal
+
+  thymeleaf:
+    cache: false
+    check-template-location: true
+    encoding: UTF-8
+    mode: HTML5
+    prefix: classpath:/templates/
+    servlet:
+      content-type: text/html
+    suffix: .html
+
+# 重试规则
+PRODUCT-SERVICE:
+  ribbon:
+    ConnectTimeout: 250 # Ribbon的连接超时时间
+    ReadTimeout: 1000 # Ribbon的数据读取超时时间
+    OkToRetryOnAllOperations: true # 是否对所有操作都进行重试
+    MaxAutoRetriesNextServer: 1 # 切换实例的重试次数
+    MaxAutoRetries: 1 # 对当前实例的重试次数
+    #设置负载均衡策略 PRODUCT-SERVICE 为调用的服务的名称
+    #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+
+#  eureka 客户端配置
+eureka:
+  client:
+    service-url:
+      # 注册中心地址
+      defaultZone: http://127.0.0.1:7001/eureka
+    register-with-eureka: true
+  instance:
+    # 自己的IP
+    ip-address: 127.0.0.1
+    # 调用getHostName方法的时候返回ip地址，不要返回主机名
+    prefer-ip-address: true
+    instance-id: springcloud-protal-80
+
+
+# 打印MyBatis的SQL语句
+logging:
+  level:
+    com.micro: info
+
+app:
+  APIID: C75128682
+  APIKEY: 2369f4fa2ee755c5c539ae7710840369
+
+
+# 开启服务熔断策略 feign
+feign:
+  hystrix:
+    enabled: true

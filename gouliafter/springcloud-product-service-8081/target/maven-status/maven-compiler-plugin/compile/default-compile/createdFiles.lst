@@ -1,0 +1,6 @@
+com\micro\service\ProductService.class
+com\micro\controller\ProductController.class
+com\micro\config\Swagger2Config.class
+com\micro\service\impl\ProductServiceImpl.class
+com\micro\mapper\ProductMapper.class
+com\micro\ProductServiceApp8081.class

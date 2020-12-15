@@ -1,0 +1,37 @@
+server:
+  port: 5051
+
+spring:
+  application:
+    # 服务的名字
+    name: address-service
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/tmallsql?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis:
+  type-aliases-package: com.micro.pojo
+  mapper-locations: classpath:mappers/*.xml
+
+# 打印MyBatis的SQL语句
+logging:
+  level:
+    com.micro.mapper: debug
+
+#   eureka 客户端配置
+eureka:
+  client:
+    service-url:
+      # 注册中心地址
+      defaultZone: http://127.0.0.1:7001/eureka
+    register-with-eureka: true
+  instance:
+    # 自己的IP
+    ip-address: 127.0.0.1
+    # 调用getHostName方法的时候返回ip地址，不要返回主机名
+    prefer-ip-address: true
+    instance-id: springcloud-address-service-5051
+

@@ -1,0 +1,31 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    # 服务的名字
+    name: springcloud-search-service
+  # ES的配置
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 127.0.0.1:9300
+      properties:
+        transport:
+          tcp:
+            connect_timeout: 120s
+
+#   eureka 客户端配置
+eureka:
+  client:
+    service-url:
+      # 注册中心地址
+      defaultZone: http://127.0.0.1:7001/eureka
+    register-with-eureka: true
+  instance:
+    # 自己的IP
+    ip-address: 127.0.0.1
+    # 调用getHostName方法的时候返回ip地址，不要返回主机名
+    prefer-ip-address: true
+    instance-id: springcloud-search-service-8088
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="springcloud-eurekaserver-7002" />
+        <module name="springcloud-eurekaserver-7001" />
+        <module name="springcloud-user-service-6061" />
+        <module name="springcloud-protal-80" />
+        <module name="springcloud-advertisement-service-9091" />
+        <module name="springcloud-productcategory-service-7071" />
+        <module name="springcloud-search-service-8088" />
+        <module name="springcloud-pojo" />
+        <module name="springcloud-address-service-5051" />
+        <module name="springcloud-product-service-8081" />
+        <module name="springcloud-commons" />
+        <module name="springcloud-eurekaserver-7003" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="springcloud-address-service-5051" options="-parameters" />
+      <module name="springcloud-advertisement-service-9091" options="-parameters" />
+      <module name="springcloud-commons" options="-parameters" />
+      <module name="springcloud-eurekaserver-7001" options="-parameters" />
+      <module name="springcloud-eurekaserver-7002" options="-parameters" />
+      <module name="springcloud-eurekaserver-7003" options="-parameters" />
+      <module name="springcloud-pojo" options="-parameters" />
+      <module name="springcloud-product-service-8081" options="-parameters" />
+      <module name="springcloud-productcategory-service-7071" options="-parameters" />
+      <module name="springcloud-protal-80" options="-parameters" />
+      <module name="springcloud-search-service-8088" options="-parameters" />
+      <module name="springcloud-user-service-6061" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.micro.mapper.ProductMapper">
+
+    <select id="findProducts" resultType="com.micro.pojo.Product">
+       select * from product where product_del=0
+    </select>
+
+    <select id="findProductsByCategory" resultType="com.micro.pojo.Product">
+        select product.* from product INNER JOIN product_category
+        on product.product_category_id=product_category.product_category_id
+        where product_category.product_category_id=#{product_category_id} order by product_create_date desc limit 0,8
+    </select>
+
+    <select id="findProductSmallImage" resultType="com.micro.pojo.ProductImage">
+        select * from productimage where productimage_product_id=#{product_id}
+    </select>
+    <select id="findById" resultType="com.micro.pojo.Product">
+        select * from product where product.product_id=#{product_id}
+    </select>
+
+    <select id="findPropertyBeans" resultType="com.micro.pojo.PropertyBean">
+        select property.property_name,propertyvalue.propertyvalue_value as 'property_value' from property INNER JOIN propertyvalue on property.property_id=propertyvalue.propertyvalue_property_id
+        where propertyvalue.propertyvalue_product_id=#{product_id}
+    </select>
+
+    <select id="getSaleCount" resultType="integer">
+        select sum(productorderitem_number) from productorder INNER JOIN productorderitem ON
+        productorder.productorder_id=productorderitem.productorderitem_order_id
+        where
+        productorderitem.productorderitem_product_id=#{product_id}
+        and
+        productorder.productorder_status=3
+    </select>
+
+    <select id="queryProductImagesByProduct_id" resultType="string">
+         select productimage_src from productimage where productimage_product_id=#{product_id} and productimage_type=0 limit 0,1
+    </select>
+
+</mapper>
